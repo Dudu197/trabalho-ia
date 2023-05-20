@@ -14,6 +14,7 @@ class Snake:
     head_position = None
     body_position = []
     food_position = None
+    points = -1
 
     # 0 = White space
     # 1 = Head
@@ -43,7 +44,8 @@ class Snake:
         if node == self.food_position:
             self.create_food()
         else:
-            if node in self.body_position:
+            if node in self.body_position and node != self.body_position[0]:
+                print("Game over")
                 self.game_over()
             if self.body_position:
                 self.body_position.pop(0)
@@ -68,6 +70,8 @@ class Snake:
             food_node = Node(new_food_position_x, new_food_position_y)
             if food_node not in self.body_position and food_node != self.head_position and food_node != self.food_position:
                 self.food_position = food_node
+                self.points += 1
+                print(f"Points: {self.points}")
                 return food_node
 
     def game_over(self):
@@ -85,9 +89,11 @@ class Snake:
         count = 0
         while True:
             count += 1
-            if count == 4:
-                print("Quatro")
+            if count == 22:#20:
+                print("Vai dar ruim")
             caminho, custo, expanded = self.search.perform_search(self.simulate_arena(), self.head_position, self.food_position, self.body_position, self.viewer)
+            if not caminho:
+                self.viewer.pause()
             caminho.pop(0)
             for i in caminho:
                 self.move(i)

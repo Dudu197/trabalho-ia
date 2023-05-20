@@ -17,14 +17,15 @@ class MazeViewer():
     # 3 = head
     # 4 = food
 
-    def __init__(self, size, zoom=50, step_time_miliseconds=-1, should_render=True):
+    def __init__(self, size, zoom=50, step_time_miliseconds=-1, render_snake=True, render_path=True):
         self._size = size
         self._zoom = zoom
         self._step = step_time_miliseconds
-        self._should_render = should_render
+        self._render_snake = render_snake
+        self._render_path = render_path
 
     def update(self, head, body, food):
-        if not self._should_render:
+        if not self._render_snake:
             return
         # To understand the image representation in opencv, refer to the following links:
         # https://www.pyimagesearch.com/2021/01/20/opencv-getting-and-setting-pixels/
@@ -50,7 +51,7 @@ class MazeViewer():
         cv2.waitKey(self._step)
 
     def update_search(self, frontier, expanded, start, goal, current_node):
-        if not self._should_render:
+        if not self._render_path:
             return
         # To understand the image representation in opencv, refer to the following links:
         # https://www.pyimagesearch.com/2021/01/20/opencv-getting-and-setting-pixels/

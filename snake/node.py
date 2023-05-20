@@ -30,11 +30,11 @@ class Node:
         for neighbor in neighbors:
             # verifica se a celula esta dentro dos limites do labirinto
             if (neighbor.y < 0) or (neighbor.x < 0) or \
-                    (neighbor.y >= len(maze)) or (neighbor.x >= len(maze[0])) \
-                    and (expanded is None or neighbor in expanded):
+                    (neighbor.y >= len(maze)) or (neighbor.x >= len(maze[0])):
+                    # or (expanded is not None and neighbor in expanded):
                 continue
             # verifica se a celula esta livre de obstaculos.
-            if maze[neighbor.x][neighbor.y] == 0:
+            if neighbor not in expanded: #maze[neighbor.x][neighbor.y] == 0:
                 available_neighbors.append(neighbor)
 
         return available_neighbors

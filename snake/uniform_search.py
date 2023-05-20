@@ -1,10 +1,8 @@
 from math import sqrt, inf
-from uniform_search import UniformSearch
 
 
-class AStarSearch:
+class UniformSearch:
     name = "Uniform Cost"
-    uniform_search = UniformSearch()
 
     def perform_search(self, maze, start, goal, body, viewer):
         # remova o comando abaixo e coloque o codigo A-star aqui
