@@ -43,6 +43,8 @@ class MazeViewer():
         self._draw_cells(maze_img, body, self.BODY_COLOR)
         self._draw_cells(maze_img, [head], self.HEAD_COLOR)
         self._draw_cells(maze_img, [food], self.FOOD_COLOR)
+        if body:
+            self._draw_cells(maze_img, [body[0]], self.START_COLOR)
         #
         maze_img = self._increase_image_size(maze_img, zoom=self._zoom)
         self._draw_grid(maze_img, self._zoom)

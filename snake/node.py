@@ -39,6 +39,23 @@ class Node:
 
         return available_neighbors
 
+    def is_in_with_depth(self, verify_list):
+        if self not in verify_list:
+            return False
+        else:
+            for i in verify_list:
+                if i == self and i.depth == self.depth:
+                    return True
+            return False
+
+    def print_prior_trace(self):
+        prior = self.prior
+        prior_list = []
+        while(prior):
+            prior_list.append(str(prior))
+            prior = prior.prior
+        return "\n".join(prior_list)
+
     def copy(self):
         return copyy(self)
 

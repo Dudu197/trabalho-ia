@@ -7,6 +7,7 @@ class UniformSearch:
     def perform_search(self, maze, start, goal, body, viewer):
         # remova o comando abaixo e coloque o codigo A-star aqui
         frontier = []
+        explored = []
         # nos ja expandidos (amarelos)
         expanded = body.copy()
         # adiciona o no inicial na fronteira
@@ -22,20 +23,22 @@ class UniformSearch:
         while (len(frontier) > 0) and (goal_encontrado is None):
             frontier = sorted(frontier, key=lambda x: x.distance)
             no_atual = frontier.pop(0)
-            if no_atual.x == 2 and no_atual.y == 7:
-                print("É ele que a gente quer")
 
-            expanded = body.copy()
+            expanded = [] # body.copy()
             expanded.append(no_atual)
-            if no_atual.prior:
-                ultimo_no = no_atual.prior
-                expanded.append(ultimo_no)
-                while ultimo_no.prior:
-                    expanded.append(ultimo_no.prior)
-                    ultimo_no = ultimo_no.prior
-            expanded_len = len(expanded)
-            for i in range(len(body), expanded_len):
-                expanded.pop(0)
+
+            prior = no_atual.prior
+            while prior:
+                expanded.append(prior)
+                prior = prior.prior
+            expanded.reverse()
+            expanded_diff = len(expanded) - len(body)
+            if len(expanded) > len(body):
+                expanded = expanded
+            if expanded_diff > 0:
+                expanded = expanded[(expanded_diff - 1):]
+            if expanded_diff < 0:
+                expanded.extend(body.copy()[:-expanded_diff])
 
             # if expanded:
             #     expanded.pop(0)
@@ -49,10 +52,11 @@ class UniformSearch:
                     goal_encontrado = v
                     break
 
-                if v not in expanded:
+                if v not in expanded and v not in explored:
                     distance = self.nodes_distance(v, goal)
                     v.distance = distance
                     frontier.append(v)
+                    explored.append(v)
 
             if no_atual not in expanded:
                 expanded.append(no_atual)
@@ -60,8 +64,8 @@ class UniformSearch:
 
         caminho = self.get_path(goal_encontrado)
         custo = self.path_cost(caminho)
-        if len(caminho) == 0:
-            print("zero")
+        # if len(caminho) == 0:
+        #     print("zero")
 
         return caminho, custo, expanded
 

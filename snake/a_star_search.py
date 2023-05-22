@@ -24,8 +24,6 @@ class AStarSearch:
         while (len(frontier) > 0) and (goal_encontrado is None):
             frontier = sorted(frontier, key=lambda x: x.distance)
             no_atual = frontier.pop(0)
-            if no_atual.x == 2 and no_atual.y == 7:
-                print("É ele que a gente quer")
 
             expanded = body.copy()
             expanded.append(no_atual)
@@ -48,8 +46,14 @@ class AStarSearch:
             for v in vizinhos:
 
                 if v.y == goal.y and v.x == goal.x:
-                    goal_encontrado = v
-                    break
+                    if expanded:
+                        cost = self.calculate_heuristc(maze, v, expanded[0], expanded[1:], viewer)
+                        if cost != inf:
+                            goal_encontrado = v
+                            break
+                    else:
+                        goal_encontrado = v
+                        break
 
                 if v not in expanded:
                     distance = self.nodes_distance(v, goal)
@@ -62,10 +66,14 @@ class AStarSearch:
 
         caminho = self.get_path(goal_encontrado)
         custo = self.path_cost(caminho)
-        if len(caminho) == 0:
-            print("zero")
+        # if len(caminho) == 0:
+        #     print("zero")
 
         return caminho, custo, expanded
+
+    def calculate_heuristc(self, maze, start, goal, body, viewer):
+        caminho, custo, expanded = self.uniform_search.perform_search(maze, start, goal, body, viewer)
+        return inf if custo == inf else 0
 
     def get_path(self, goal):
         path = []

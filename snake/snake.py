@@ -89,7 +89,8 @@ class Snake:
         count = 0
         while True:
             count += 1
-            if count == 22:#20:
+            if count == -1:#20:
+                self.viewer._render_path = True
                 print("Vai dar ruim")
             caminho, custo, expanded = self.search.perform_search(self.simulate_arena(), self.head_position, self.food_position, self.body_position, self.viewer)
             if not caminho:
