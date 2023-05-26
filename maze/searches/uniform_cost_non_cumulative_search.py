@@ -1,11 +1,12 @@
 from .search import Search
 
 
-class UniformCostSearch(Search):
-    name = "Uniform Cost"
+class UniformCostNonCumulativeSearch(Search):
+    name = "Uniform Cost Non Cumulative"
 
     def nodes_abs_distance(self, current_node, previous_node):
         return abs(current_node.x - previous_node.x) + abs(current_node.y - previous_node.y)
+
     def perform_search(self, maze, start, goal, viewer):
         # remova o comando abaixo e coloque o codigo A-star aqui
         frontier = []
@@ -36,7 +37,7 @@ class UniformCostSearch(Search):
 
                 if v not in frontier and v not in expanded:
                     distance = self.nodes_abs_distance(v, goal)
-                    v.distance = current_node.distance + distance
+                    v.distance = distance
                     frontier.append(v)
 
             if current_node.x != 0 or current_node.y != 0:

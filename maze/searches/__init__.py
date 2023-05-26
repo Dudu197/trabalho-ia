@@ -1,4 +1,7 @@
 from .breadth_first_search import BreadthFirstSearch
 from .uniform_cost_search import UniformCostSearch
+from .uniform_cost_non_cumulative_search import UniformCostNonCumulativeSearch
+from .a_star_search import AStarSearch
+from .a_star_non_cumulative_search import AStarNonCumulativeSearch
 from .depth_first_search import DepthFirstSearch
 from .interative_deepning_depth_first_search import InteractiveDeepningDepthFirstSearch

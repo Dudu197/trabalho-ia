@@ -5,8 +5,8 @@ import numpy as np
 import pandas as pd
 import time
 
-search_methods = [BreadthFirstSearch(), DepthFirstSearch(), UniformCostSearch(), InteractiveDeepningDepthFirstSearch()]
-# search_methods = [InteractiveDeepningDepthFirstSearch()]
+search_methods = [BreadthFirstSearch(), DepthFirstSearch(), UniformCostSearch(), InteractiveDeepningDepthFirstSearch(), UniformCostNonCumulativeSearch(), AStarNonCumulativeSearch()]
+# search_methods = [AStarSearch()]
 df_results = pd.DataFrame(columns=["method", "experiment", "steps", "expanded", "cost", "time_duration"])
 
 
@@ -45,11 +45,12 @@ X_SIZE = 300
 WALL_RATE = 0.5
 STEP_TIME = 40
 ZOOM = 40
-test_number = 300
+test_number = 1
 should_render = False
+seed=42
 
 for method in search_methods:
-    random = np.random.RandomState(101)
+    random = np.random.RandomState(seed)
     print(f"Testing {method.name}")
     for i in range(test_number):
         START = Node(x=0, y=0)
@@ -110,5 +111,5 @@ for method in search_methods:
     # ----------------------------------------
     # Uniform Cost Search (Obs: opcional)
     # ----------------------------------------
-df_results.to_json("result.json", orient="records")
+# df_results.to_json("result.json", orient="records")
 print("Finalizado!")
