@@ -9,45 +9,15 @@ import time
 # df_results = pd.DataFrame(columns=["method", "experiment", "steps", "expanded", "cost", "time_duration"])
 
 
-def create_maze(y_size, x_size, start, goal, wall_rate, random):
-    """
-    Only creates square mazes
-    :param y_size: Height of the maze
-    :param x_size: Width of the maze
-    :param start: Beginning node
-    :param goal: Ending node
-    :param wall_rate: Rate of how many walls should appear
-    :param random: np random state
-    :return: The created maze
-    """
-    # cria labirinto vazio
-    maze = [[0] * x_size for _ in range(y_size)]
-
-    # adiciona celulas ocupadas em locais aleatorios de
-    # forma que 25% do labirinto esteja ocupado
-    numero_de_obstaculos = int(wall_rate * (y_size * x_size))
-    for _ in range(numero_de_obstaculos):
-        line = random.randint(0, y_size - 1)
-        row = random.randint(0, x_size - 1)
-        maze[line][row] = 1
-
-    # remove eventuais obstaculos adicionados na posicao
-    # inicial e no goal
-    maze[start.y][start.x] = 0
-    maze[goal.y][goal.x] = 0
-
-    return maze
-
-
-SIZE = 128
+SIZE = 8
 WALL_RATE = 0.5
-STEP_TIME = 20
-ZOOM = 10
+STEP_TIME = 50
+ZOOM = 80
 test_number = 1
 should_render = True
 seed = 42
 
-method = DepthFirstSearch()
+method = RandomRestartHillClimbing()
 board = np.tile([[0, 1], [1, 0]], (int(SIZE / 2), int(SIZE / 2)))
 
 random = np.random.RandomState(seed)

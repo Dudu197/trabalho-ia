@@ -1,1 +1,4 @@
-from .depth_first_search import DepthFirstSearch
+from .classic_hill_climbing import ClassicHillClimbing
+from .stochastic_hill_climbing import StochasticHillClimbing
+from .first_choice_hill_climbing import FirstChoiceHillClimbing
+from .random_restart_hill_climbing import RandomRestartHillClimbing
