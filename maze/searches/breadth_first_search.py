@@ -15,12 +15,14 @@ class BreadthFirstSearch(Search):
 
         # variavel para armazenar o goal quando ele for encontrado.
         goal_found = None
+        frontier_count = 0
 
         # Repete enquanto nos nao encontramos o goal e ainda
         # existem para serem expandidos na fronteira. Se
         # acabarem os nos da fronteira antes do goal ser encontrado,
         # entao ele nao eh alcancavel.
         while (len(frontier) > 0) and (goal_found is None):
+            frontier_count += 1
 
             # seleciona o no mais antigo para ser expandido
             no_atual = frontier.pop(0)
@@ -47,4 +49,4 @@ class BreadthFirstSearch(Search):
         caminho = self.get_path(goal_found)
         custo = self.path_cost(caminho)
 
-        return caminho, custo, expanded
+        return caminho, custo, expanded, frontier_count

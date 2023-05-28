@@ -14,12 +14,14 @@ class DepthFirstSearch(Search):
 
         # variavel para armazenar o goal quando ele for encontrado.
         goal_found = None
+        frontier_count = 0
 
         # Repete enquanto nos nao encontramos o goal e ainda
         # existem para serem expandidos na fronteira. Se
         # acabarem os nos da fronteira antes do goal ser encontrado,
         # entao ele nao eh alcancavel.
         while (len(frontier) > 0) and (goal_found is None):
+            frontier_count += 1
             current_node = frontier.pop(0)
 
             # busca os vizinhos do no
@@ -27,9 +29,8 @@ class DepthFirstSearch(Search):
             frontier[:0] = [n for n in neighbors if n not in frontier and n not in expanded]
 
             for neighbor in neighbors:
-                if neighbor.y == goal.y and neighbor.x == goal.x:
+                if current_node == goal:
                     goal_found = neighbor
-                    # encerra o loop interno
                     break
 
             if current_node.x != 0 or current_node.y != 0:
@@ -40,4 +41,4 @@ class DepthFirstSearch(Search):
         path = self.get_path(goal_found)
         cost = self.path_cost(path)
 
-        return path, cost, expanded
+        return path, cost, expanded, frontier_count

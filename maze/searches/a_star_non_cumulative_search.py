@@ -17,23 +17,24 @@ class AStarNonCumulativeSearch(Search):
 
         # variavel para armazenar o goal quando ele for encontrado.
         goal_found = None
+        frontier_count = 0
 
         # Repete enquanto nos nao encontramos o goal e ainda
         # existem para serem expandidos na fronteira. Se
         # acabarem os nos da fronteira antes do goal ser encontrado,
         # entao ele nao eh alcancavel.
         while (len(frontier) > 0) and (goal_found is None):
+            frontier_count += 1
             frontier = sorted(frontier, key=lambda x: x.cost)
             current_node = frontier.pop(0)
+            if current_node == goal:
+                goal_found = current_node
+                break
 
             # busca os vizinhos do no
             neighbor = current_node.neighbors(maze, expanded)
 
             for v in neighbor:
-
-                if v.y == goal.y and v.x == goal.x:
-                    goal_found = v
-                    break
 
                 if v not in frontier and v not in expanded:
                     distance = self.nodes_distance(v, goal)
@@ -50,4 +51,4 @@ class AStarNonCumulativeSearch(Search):
         caminho = self.get_path(goal_found)
         custo = self.path_cost(caminho)
 
-        return caminho, custo, expanded
+        return caminho, custo, expanded, frontier_count

@@ -5,8 +5,8 @@ import numpy as np
 import pandas as pd
 import time
 
-search_methods = [BreadthFirstSearch(), DepthFirstSearch(), UniformCostSearch(), InteractiveDeepningDepthFirstSearch(), UniformCostNonCumulativeSearch(), AStarNonCumulativeSearch()]
-# search_methods = [AStarSearch()]
+search_methods = [BreadthFirstSearch(), DepthFirstSearch(), UniformCostSearch(), AStarSearch(), InteractiveDeepningDepthFirstSearch(), UniformCostNonCumulativeSearch(), AStarNonCumulativeSearch()]
+# search_methods = [UniformCostSearch()]
 df_results = pd.DataFrame(columns=["method", "experiment", "steps", "expanded", "cost", "time_duration"])
 
 
@@ -47,7 +47,7 @@ STEP_TIME = 40
 ZOOM = 40
 test_number = 1
 should_render = False
-seed=42
+seed = 42
 
 for method in search_methods:
     random = np.random.RandomState(seed)
@@ -69,7 +69,7 @@ for method in search_methods:
         # ----------------------------------------
         viewer._figname = method.name
         start_time = time.time()
-        caminho, custo_total, expandidos = method.perform_search(maze, START, GOAL, viewer)
+        caminho, custo_total, expandidos, gerados = method.perform_search(maze, START, GOAL, viewer)
         end_time = time.time()
         total_time = end_time - start_time
             # uniform_path_search(maze, START, GOAL, viewer)
@@ -92,6 +92,7 @@ for method in search_methods:
             "experiment": i + 1,
             "steps": len(caminho),
             "expanded": len(expandidos),
+            "generated": gerados,
             "cost": custo_total,
             "time_duration": total_time
             }], ignore_index=True)
@@ -111,5 +112,5 @@ for method in search_methods:
     # ----------------------------------------
     # Uniform Cost Search (Obs: opcional)
     # ----------------------------------------
-# df_results.to_json("result.json", orient="records")
+df_results.to_json("result.json", orient="records")
 print("Finalizado!")

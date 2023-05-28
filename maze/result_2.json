@@ -1,0 +1,58 @@
+[
+    {
+        "method": "Breadth First",
+        "experiment": 1,
+        "steps": 361,
+        "expanded": 54578,
+        "cost": 471.009234716,
+        "time_duration": 1.9865319729
+    },
+    {
+        "method": "Depth First",
+        "experiment": 1,
+        "steps": 653,
+        "expanded": 856,
+        "cost": 724.9015869777,
+        "time_duration": 0.0772595406
+    },
+    {
+        "method": "Uniform Cost",
+        "experiment": 1,
+        "steps": 371,
+        "expanded": 44707,
+        "cost": 473.5533905933,
+        "time_duration": 3.8542094231
+    },
+    {
+        "method": "A Star",
+        "experiment": 1,
+        "steps": 362,
+        "expanded": 42820,
+        "cost": 468.2813126546,
+        "time_duration": 3.7384307384
+    },
+    {
+        "method": "Interactive Deepening Depth First",
+        "experiment": 1,
+        "steps": 361,
+        "expanded": 54576,
+        "cost": 469.3523804665,
+        "time_duration": 4.1713778973
+    },
+    {
+        "method": "Uniform Cost Non Cumulative",
+        "experiment": 1,
+        "steps": 416,
+        "expanded": 436,
+        "cost": 522.2813126546,
+        "time_duration": 0.0530734062
+    },
+    {
+        "method": "A Star Non Cumulative",
+        "experiment": 1,
+        "steps": 487,
+        "expanded": 550,
+        "cost": 555.5878784787,
+        "time_duration": 0.0520749092
+    }
+]
