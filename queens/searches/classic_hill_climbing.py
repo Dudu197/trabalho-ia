@@ -3,7 +3,7 @@ import numpy as np
 
 
 class ClassicHillClimbing(HillClimbing):
-    name = "Classical"
+    name = "Classic"
     board = None
     random = None
     queen_value = 2
@@ -42,5 +42,4 @@ class ClassicHillClimbing(HillClimbing):
                 if count_resolved == board_size:
                     resolved = True
         print("Finished")
-        print(count)
-        viewer.pause()
+        return count

@@ -45,5 +45,4 @@ class StochasticHillClimbing(HillClimbing):
                 if count_resolved == board_size:
                     resolved = True
         print("Finished")
-        print(count)
-        viewer.pause()
+        return count

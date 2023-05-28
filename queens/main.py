@@ -4,17 +4,16 @@ import numpy as np
 import pandas as pd
 import time
 
-# search_methods = [BreadthFirstSearch(), DepthFirstSearch(), UniformCostSearch(), AStarSearch(), InteractiveDeepningDepthFirstSearch(), UniformCostNonCumulativeSearch(), AStarNonCumulativeSearch()]
-# search_methods = [UniformCostSearch()]
-# df_results = pd.DataFrame(columns=["method", "experiment", "steps", "expanded", "cost", "time_duration"])
+methods = [ClassicHillClimbing(), StochasticHillClimbing(), FirstChoiceHillClimbing(), RandomRestartHillClimbing()]
+df_results = pd.DataFrame(columns=["method", "count", "time_duration"])
 
 
-SIZE = 8
+SIZE = 128
 WALL_RATE = 0.5
 STEP_TIME = 50
 ZOOM = 80
 test_number = 1
-should_render = True
+should_render = False
 seed = 42
 
 method = RandomRestartHillClimbing()
@@ -22,15 +21,18 @@ board = np.tile([[0, 1], [1, 0]], (int(SIZE / 2), int(SIZE / 2)))
 
 random = np.random.RandomState(seed)
 viewer = MazeViewer(board, step_time_miliseconds=STEP_TIME, zoom=ZOOM, should_render=should_render)
-start_time = time.time()
-method.perform_search(board, random, viewer)
-end_time = time.time()
-print("Total time (s):")
-print(end_time - start_time)
 
-if should_render:
-    # viewer.update(path=caminho)
-    viewer.pause()
+for method in methods:
+    print("Testing", method.name)
+    start_time = time.time()
+    count = method.perform_search(board, random, viewer)
+    end_time = time.time()
+    total_time = end_time - start_time
+    df_results = df_results.append([{
+                    "method": method.name,
+                    "count": count,
+                    "time_duration": total_time
+                    }], ignore_index=True)
 
 # for method in search_methods:
 #     random = np.random.RandomState(seed)
@@ -95,5 +97,5 @@ if should_render:
 #     # ----------------------------------------
 #     # Uniform Cost Search (Obs: opcional)
 #     # ----------------------------------------
-# df_results.to_json("result.json", orient="records")
+df_results.to_json("result.json", orient="records")
 print("Finalizado!")

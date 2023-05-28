@@ -3,7 +3,7 @@ import numpy as np
 
 
 class RandomRestartHillClimbing(HillClimbing):
-    name = "Classical"
+    name = "Random Restart"
     board = None
     random = None
     queen_value = 2
@@ -46,9 +46,7 @@ class RandomRestartHillClimbing(HillClimbing):
                     viewer.update(self.board, queens)
                     if count_resolved == board_size:
                         print("Finished")
-                        print(count)
-                        viewer.pause()
-                        return
+                        return count
         print("Could not finish")
         print(count)
-        viewer.pause()
+        return -count

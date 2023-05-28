@@ -3,7 +3,7 @@ import numpy as np
 
 
 class FirstChoiceHillClimbing(HillClimbing):
-    name = "Stochastic"
+    name = "First Choice"
     board = None
     random = None
     queen_value = 2
@@ -43,5 +43,4 @@ class FirstChoiceHillClimbing(HillClimbing):
                 if count_resolved == board_size:
                     resolved = True
         print("Finished")
-        print(count)
-        viewer.pause()
+        return count
