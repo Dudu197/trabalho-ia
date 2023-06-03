@@ -23,18 +23,15 @@ class DepthFirstSearch(Search):
         while (len(frontier) > 0) and (goal_found is None):
             frontier_count += 1
             current_node = frontier.pop(0)
+            if current_node == goal:
+                goal_found = current_node
+                break
 
             # busca os vizinhos do no
             neighbors = current_node.neighbors(maze, expanded)
             frontier[:0] = [n for n in neighbors if n not in frontier and n not in expanded]
 
-            for neighbor in neighbors:
-                if current_node == goal:
-                    goal_found = neighbor
-                    break
-
-            if current_node.x != 0 or current_node.y != 0:
-                expanded.add(current_node)
+            expanded.add(current_node)
             viewer.update(generated=frontier,
                           expanded=expanded)
 

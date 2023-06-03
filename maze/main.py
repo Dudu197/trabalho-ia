@@ -63,19 +63,12 @@ for method in search_methods:
         maze = create_maze(Y_SIZE, X_SIZE, START, GOAL, WALL_RATE, random)
 
         viewer = MazeViewer(maze, START, GOAL, step_time_miliseconds=STEP_TIME, zoom=ZOOM, should_render=should_render)
-
-        # ----------------------------------------
-        # BFS Search
-        # ----------------------------------------
         viewer._figname = method.name
+
         start_time = time.time()
         caminho, custo_total, expandidos, gerados = method.perform_search(maze, START, GOAL, viewer)
         end_time = time.time()
         total_time = end_time - start_time
-            # uniform_path_search(maze, START, GOAL, viewer)
-        # a_star_search(labirinto, INICIO, GOAL, viewer)
-        # depth_first_search(labirinto, INICIO, GOAL, viewer)
-        # breadth_first_search(labirinto, INICIO, GOAL, viewer)
 
         if len(caminho) == 0:
             print("Goal é inalcançavel neste labirinto.")

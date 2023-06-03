@@ -23,7 +23,7 @@ class AStarNonCumulativeSearch(Search):
         # existem para serem expandidos na fronteira. Se
         # acabarem os nos da fronteira antes do goal ser encontrado,
         # entao ele nao eh alcancavel.
-        while (len(frontier) > 0) and (goal_found is None):
+        while frontier:
             frontier_count += 1
             frontier = sorted(frontier, key=lambda x: x.cost)
             current_node = frontier.pop(0)

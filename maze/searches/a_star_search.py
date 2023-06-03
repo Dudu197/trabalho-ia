@@ -23,18 +23,18 @@ class AStarSearch(Search):
         # existem para serem expandidos na fronteira. Se
         # acabarem os nos da fronteira antes do goal ser encontrado,
         # entao ele nao eh alcancavel.
-        while (len(frontier) > 0) and (goal_found is None):
+        while frontier:
             frontier_count += 1
             frontier = sorted(frontier, key=lambda x: x.cost)
             current_node = frontier.pop(0)
+            if current_node == goal:
+                goal_found = current_node
+                break
 
             # busca os vizinhos do no
             neighbor = current_node.neighbors(maze, expanded)
 
             for v in neighbor:
-                if v.y == goal.y and v.x == goal.x:
-                    goal_found = v
-                    break
 
                 if v not in frontier and v not in expanded:
                     distance = self.nodes_distance(v, goal)
